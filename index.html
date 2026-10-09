@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>実験素材</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.7;
+    }
+
+    video {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    #returnButton {
+      display: none;
+      margin-top: 30px;
+      padding: 14px 24px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>以下の動画を最後までご覧ください。</h2>
+
+  <video id="stimulus" controls playsinline>
+    <source src="stimulus.mp4" type="video/mp4">
+    お使いのブラウザでは動画を再生できません。
+  </video>
+
+  <p id="message">
+    動画を最後まで視聴してください。
+  </p>
+
+  <button id="returnButton" onclick="history.back()">
+    アンケートに戻る
+  </button>
+
+  <script>
+    const video = document.getElementById("stimulus");
+    const button = document.getElementById("returnButton");
+    const message = document.getElementById("message");
+
+    video.addEventListener("ended", function() {
+      message.textContent = "動画の視聴が終了しました。";
+      button.style.display = "block";
+    });
+  </script>
+
+</body>
+</html>

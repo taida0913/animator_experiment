@@ -7,15 +7,11 @@
   <title>実験素材</title>
 
   <style>
-
     * {
       box-sizing: border-box;
     }
 
     body {
-      margin: 0;
-      padding: 20px;
-      background: #ffffff;
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -23,144 +19,40 @@
         "Hiragino Kaku Gothic ProN",
         "Yu Gothic",
         sans-serif;
-      color: #0f1419;
-    }
 
-
-    /* ページ全体 */
-    .page {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-
-    /* 上部説明 */
-    .instruction {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 20px;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
       line-height: 1.7;
     }
 
-
-    /* X風投稿 */
-    .post {
-      width: 100%;
-      border: 1px solid #cfd9de;
-      border-radius: 16px;
-      padding: 16px;
-      background: white;
+    h2 {
+      font-size: 20px;
+      margin-top: 0;
+      margin-bottom: 20px;
     }
-
-
-    /* 投稿者情報 */
-    .user-area {
-      display: flex;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-
-
-    /* アイコン */
-    .avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #d9d9d9;
-      margin-right: 12px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 18px;
-      font-weight: bold;
-
-      flex-shrink: 0;
-    }
-
-
-    /* 名前 */
-    .user-info {
-      min-width: 0;
-    }
-
-
-    .name {
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 1.3;
-    }
-
-
-    .handle {
-      font-size: 15px;
-      color: #536471;
-      margin-top: 2px;
-    }
-
-
-    /* 投稿本文 */
-    .post-text {
-      font-size: 17px;
-      line-height: 1.65;
-      white-space: pre-line;
-      margin-bottom: 14px;
-    }
-
-
-    /* 動画 */
-    .video-area {
-      width: 100%;
-      overflow: hidden;
-      border-radius: 14px;
-      border: 1px solid #cfd9de;
-      background: #000;
-    }
-
 
     video {
       display: block;
       width: 100%;
+      max-width: 600px;
       height: auto;
+
+      /* PCで左寄りにならないよう中央配置 */
+      margin: 0 auto;
     }
 
-
-    /* X風の下部アイコン */
-    .actions {
-      display: flex;
-      justify-content: space-around;
-      color: #536471;
-      padding-top: 14px;
-      font-size: 18px;
-    }
-
-
-    /* 視聴案内 */
     #message {
+      margin-top: 16px;
       text-align: center;
-      margin-top: 24px;
       font-size: 15px;
-      font-weight: 600;
-      line-height: 1.6;
     }
 
-
-    /* アンケートに戻る */
     #returnButton {
       display: none;
 
-      width: 100%;
-      margin-top: 20px;
-
-      padding: 15px 20px;
-
-      border: none;
-      border-radius: 9999px;
-
-      background: #0f1419;
-      color: white;
+      margin: 25px auto 0;
+      padding: 14px 28px;
 
       font-size: 16px;
       font-weight: bold;
@@ -168,141 +60,51 @@
       cursor: pointer;
     }
 
-
-    #returnButton:hover {
-      opacity: 0.85;
-    }
-
-
-    /* スマホ */
-    @media (max-width: 600px) {
+    /*
+      PC・大型端末だけに適用。
+      スマホの動画サイズには影響しない。
+    */
+    @media (min-width: 768px) {
 
       body {
-        padding: 14px;
+        margin-top: 20px;
+        margin-bottom: 20px;
       }
 
-      .post {
-        padding: 14px;
+      video {
+        width: auto;
+        max-width: 100%;
+        max-height: 72vh;
       }
-
-      .post-text {
-        font-size: 16px;
-      }
-
-      .instruction {
-        font-size: 15px;
-      }
-
     }
 
   </style>
 </head>
 
-
 <body>
 
-  <div class="page">
+  <h2>投稿全体をご覧ください。</h2>
 
+  <video
+    id="stimulus"
+    controls
+    playsinline
+  >
+    <source src="stimulus.mp4" type="video/mp4">
 
-    <!-- ここは実験参加者への説明 -->
-    <div class="instruction">
-      以下の投稿をご覧ください。<br>
-      投稿内の動画を最後まで視聴してください。
-    </div>
+    お使いのブラウザでは動画を再生できません。
+  </video>
 
+  <p id="message">
+    再生ボタンを押せば何度でもご覧いただけます。
+  </p>
 
-
-    <!-- X風投稿 -->
-    <div class="post">
-
-
-      <!-- 投稿者 -->
-      <div class="user-area">
-
-        <div class="avatar">
-          A
-        </div>
-
-        <div class="user-info">
-
-          <!-- ★ここを架空アニメーター名に変更 -->
-          <div class="name">
-            朝霧レン
-          </div>
-
-          <!-- ★ここを架空IDに変更 -->
-          <div class="handle">
-            @ren_animation
-          </div>
-
-        </div>
-
-      </div>
-
-
-
-      <!-- ★ここが条件ごとに変える投稿文 -->
-      <div class="post-text">
-新作アニメーション「〇〇」に原画として参加しました。
-担当したカットの一部です。
-      </div>
-
-
-
-      <!-- 動画 -->
-      <div class="video-area">
-
-        <video
-          id="stimulus"
-          controls
-          playsinline
-          preload="metadata"
-        >
-
-          <source
-            src="stimulus.mp4"
-            type="video/mp4"
-          >
-
-          お使いのブラウザでは動画を再生できません。
-
-        </video>
-
-      </div>
-
-
-
-      <!-- X風アイコン -->
-      <div class="actions">
-        <span>♡</span>
-        <span>↻</span>
-        <span>↗</span>
-      </div>
-
-
-    </div>
-
-
-
-    <!-- 視聴状態 -->
-    <p id="message">
-      動画を最後まで視聴してください。
-    </p>
-
-
-
-    <!-- 動画終了後のみ表示 -->
-    <button
-      id="returnButton"
-      onclick="history.back()"
-    >
-      アンケートに戻る
-    </button>
-
-
-  </div>
-
-
+  <button
+    id="returnButton"
+    onclick="history.back()"
+  >
+    アンケートに戻る
+  </button>
 
   <script>
 
@@ -316,21 +118,17 @@
       document.getElementById("message");
 
 
-    video.addEventListener(
-      "ended",
-      function() {
+    video.addEventListener("ended", function() {
 
-        message.textContent =
-          "動画の視聴が終了しました。アンケートに戻って回答を続けてください。";
+      message.textContent =
+        "投稿の閲覧が終了しました。再度ご覧いただくこともできます。";
 
-        button.style.display =
-          "block";
+      button.style.display =
+        "block";
 
-      }
-    );
+    });
 
   </script>
-
 
 </body>
 </html>

@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-
   <meta charset="UTF-8">
-
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>実験素材</title>
 
-
   <style>
-
     * {
       box-sizing: border-box;
     }
-
 
     body {
       font-family:
@@ -28,413 +21,114 @@
         sans-serif;
 
       max-width: 700px;
-
       margin: 40px auto;
-
       padding: 20px;
-
       line-height: 1.7;
-
-      color: #111;
-
-      background: #fff;
     }
-
-
-    /* 上部の説明文 */
 
     h2 {
-
       font-size: 20px;
-
       margin-top: 0;
-
       margin-bottom: 20px;
-
     }
-
-
-    /* 動画全体を囲む部分 */
-
-    .videoWrapper {
-
-      position: relative;
-
-      width: 100%;
-
-      max-width: 600px;
-
-      margin: 0 auto;
-
-    }
-
-
-    /* 動画 */
 
     video {
-
       display: block;
-
       width: 100%;
-
+      max-width: 600px;
       height: auto;
 
+      /* PCでも中央に配置 */
       margin: 0 auto;
-
-      background: #000;
-
-      /*
-        動画そのものをタップしても
-        Safari等のUIが出ないようにする
-      */
-
-      pointer-events: none;
-
     }
-
-
-    /* 独自の再生ボタン */
-
-    #playButton {
-
-      position: absolute;
-
-      top: 50%;
-
-      left: 50%;
-
-      transform: translate(-50%, -50%);
-
-      padding: 14px 24px;
-
-      border: none;
-
-      border-radius: 9999px;
-
-      background: rgba(0, 0, 0, 0.72);
-
-      color: white;
-
-      font-size: 18px;
-
-      font-weight: bold;
-
-      cursor: pointer;
-
-      z-index: 10;
-
-      white-space: nowrap;
-
-    }
-
-
-    #playButton:hover {
-
-      background: rgba(0, 0, 0, 0.85);
-
-    }
-
-
-    /* 動画下の説明 */
 
     #message {
-
       margin-top: 16px;
-
       text-align: center;
-
       font-size: 15px;
-
-      line-height: 1.7;
-
     }
 
-
-    /* アンケートに戻るボタン */
-
     #returnButton {
-
       display: none;
 
       margin: 25px auto 0;
-
       padding: 14px 28px;
 
-      border: none;
-
-      border-radius: 12px;
-
-      background: #eeeeee;
-
-      color: #111;
-
       font-size: 16px;
-
       font-weight: bold;
 
       cursor: pointer;
-
     }
-
-
-    #returnButton:hover {
-
-      background: #dddddd;
-
-    }
-
 
     /*
-      PC・大きめの画面だけに適用する設定
-
-      スマホの表示サイズには影響しない
+      PC・大型端末だけに適用。
+      スマホの動画サイズには影響しない。
     */
-
     @media (min-width: 768px) {
 
       body {
-
         margin-top: 20px;
-
         margin-bottom: 20px;
-
       }
-
-
-      .videoWrapper {
-
-        width: fit-content;
-
-        max-width: 100%;
-
-      }
-
 
       video {
-
         width: auto;
-
         max-width: 100%;
-
         max-height: 72vh;
-
       }
-
-    }
-
-
-    /*
-      スマホ用
-
-      動画は今まで通り横幅いっぱいに表示
-    */
-
-    @media (max-width: 767px) {
-
-      body {
-
-        margin: 20px auto;
-
-        padding: 20px;
-
-      }
-
-
-      .videoWrapper {
-
-        width: 100%;
-
-      }
-
-
-      video {
-
-        width: 100%;
-
-        height: auto;
-
-      }
-
     }
 
   </style>
-
 </head>
-
 
 <body>
 
+  <h2>投稿全体をご覧ください。</h2>
 
-  <h2>
-    投稿全体をご覧ください。
-  </h2>
+  <video
+    id="stimulus"
+    controls
+    playsinline
+  >
+    <source src="stimulus.mp4" type="video/mp4">
 
-
-  <div class="videoWrapper">
-
-
-    <video
-      id="stimulus"
-      playsinline
-      preload="auto"
-      disablePictureInPicture
-    >
-
-      <source
-        src="stimulus.mp4"
-        type="video/mp4"
-      >
-
-      お使いのブラウザでは動画を再生できません。
-
-    </video>
-
-
-    <button
-      id="playButton"
-      type="button"
-    >
-
-      ▶ 再生
-
-    </button>
-
-
-  </div>
-
+    お使いのブラウザでは動画を再生できません。
+  </video>
 
   <p id="message">
-
     再生ボタンを押せば何度でもご覧いただけます。
-
   </p>
-
 
   <button
     id="returnButton"
-    type="button"
     onclick="history.back()"
   >
-
     アンケートに戻る
-
   </button>
 
-
-
   <script>
-
 
     const video =
       document.getElementById("stimulus");
 
-
-    const playButton =
-      document.getElementById("playButton");
-
-
-    const returnButton =
+    const button =
       document.getElementById("returnButton");
-
 
     const message =
       document.getElementById("message");
 
 
+    video.addEventListener("ended", function() {
 
-    /* -------------------------
-       再生ボタンを押したとき
-    ------------------------- */
+      message.textContent =
+        "投稿の閲覧が終了しました。再度ご覧いただくこともできます。";
 
-    playButton.addEventListener(
-      "click",
-      function () {
+      button.style.display =
+        "block";
 
-        /*
-          一度最後まで再生していた場合は
-          最初から再生する
-        */
-
-        if (video.ended) {
-
-          video.currentTime = 0;
-
-        }
-
-
-        video.play();
-
-
-        /*
-          再生中は独自ボタンを隠す
-        */
-
-        playButton.style.display = "none";
-
-      }
-    );
-
-
-
-    /* -------------------------
-       動画が最後まで終了したとき
-    ------------------------- */
-
-    video.addEventListener(
-      "ended",
-      function () {
-
-        /*
-          もう一度見るボタンを表示
-        */
-
-        playButton.textContent =
-          "▶ もう一度見る";
-
-
-        playButton.style.display =
-          "block";
-
-
-        /*
-          視聴終了後も説明文を表示
-        */
-
-        message.textContent =
-          "投稿の閲覧が終了しました。再度ご覧いただくこともできます。";
-
-
-        /*
-          一度最後まで見たら
-          アンケートに戻るボタンを表示
-        */
-
-        returnButton.style.display =
-          "block";
-
-      }
-    );
-
-
-
-    /* -------------------------
-       万が一再生に失敗した場合
-    ------------------------- */
-
-    video.addEventListener(
-      "error",
-      function () {
-
-        message.textContent =
-          "動画を読み込めませんでした。ページを再読み込みしてください。";
-
-      }
-    );
-
+    });
 
   </script>
 
-
 </body>
-
 </html>
